@@ -1,0 +1,7 @@
+{
+  "name": "BATUK — Restaurante & Gastronomia Premium",
+  "description": "Protótipo premium do website do restaurante BATUK. Experiência gastronómica autêntica, menu irresistível e pedidos integrados via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
