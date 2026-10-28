@@ -10,7 +10,6 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { FeaturedDishes } from './components/FeaturedDishes';
 import { MenuSection } from './components/MenuSection';
-import { OriginalPaperMenu } from './components/OriginalPaperMenu';
 import { LocationSection } from './components/LocationSection';
 import { ReviewsSection } from './components/ReviewsSection';
 import { DishDetailModal } from './components/DishDetailModal';
@@ -22,10 +21,10 @@ import { CartDrawer } from './components/CartDrawer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { WhatsAppSettingsModal } from './components/WhatsAppSettingsModal';
 import { MobileBottomBar } from './components/MobileBottomBar';
-import { Check, UtensilsCrossed, FileText, MapPin, Star, Compass, LayoutGrid } from 'lucide-react';
+import { Check, UtensilsCrossed, MapPin, Star, Compass, LayoutGrid, ArrowRight } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'todos' | 'restaurante' | 'carta_pdf' | 'menu_digital' | 'localizacao' | 'avaliacoes'>('todos');
+  const [activeTab, setActiveTab] = useState<'todos' | 'restaurante' | 'cardapio' | 'localizacao' | 'avaliacoes'>('todos');
 
   const [cart, setCart] = useState<CartItem[]>(() => {
     try {
@@ -113,11 +112,10 @@ export default function App() {
   const totalCartCount = cart.reduce((acc, c) => acc + c.quantity, 0);
 
   const tabsConfig = [
-    { id: 'todos', label: 'Visão Geral', icon: LayoutGrid, desc: 'Tudo sobre o Batuk' },
-    { id: 'restaurante', label: 'O Restaurante', icon: Compass, desc: 'Espaço, Praia e Equipa' },
-    { id: 'carta_pdf', label: 'Carta Oficial (PDF)', icon: FileText, desc: 'Folhas da Capa Mica' },
-    { id: 'menu_digital', label: 'Menu & Pedidos', icon: UtensilsCrossed, desc: 'Grelhados e Mariscos' },
-    { id: 'localizacao', label: 'Localização', icon: MapPin, desc: 'Av. de Lisboa e Mapa' },
+    { id: 'todos', label: 'Visão Geral', icon: LayoutGrid, desc: 'Apresentação do Batuk' },
+    { id: 'restaurante', label: 'O Restaurante', icon: Compass, desc: 'Espaço e Equipa' },
+    { id: 'cardapio', label: 'Cardápio', icon: UtensilsCrossed, desc: 'Pratos & Opção PDF' },
+    { id: 'localizacao', label: 'Localização', icon: MapPin, desc: 'Praia do Lobito & Mapa' },
     { id: 'avaliacoes', label: 'Avaliações', icon: Star, desc: '4.1 ★ no Google' },
   ] as const;
 
@@ -154,7 +152,7 @@ export default function App() {
         {/* Hero Section */}
         <Hero
           onOpenOrder={() => {
-            setActiveTab('menu_digital');
+            setActiveTab('cardapio');
             setIsCartOpen(true);
           }}
           whatsAppPhone={whatsAppPhone}
@@ -210,10 +208,10 @@ export default function App() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setActiveTab('carta_pdf')}
+                    onClick={() => setActiveTab('cardapio')}
                     className="px-5 py-2.5 rounded-xl bg-white/10 text-white text-xs uppercase tracking-wider font-semibold border border-white/15 hover:bg-white/15 transition-all"
                   >
-                    Ver Carta Oficial
+                    Ver Cardápio
                   </button>
                 </div>
               </div>
@@ -221,20 +219,8 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB VIEW 2: CARTA OFICIAL EM PAPEL / CAPA MICA (PDF Replica) */}
-        {activeTab === 'carta_pdf' && (
-          <div className="animate-fadeIn py-10 sm:py-16 bg-[#161311] border-t border-white/5">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <OriginalPaperMenu
-                onAddToCart={handleAddToCart}
-                whatsAppPhone={whatsAppPhone}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* TAB VIEW 3: MENU DIGITAL & PEDIDOS */}
-        {activeTab === 'menu_digital' && (
+        {/* TAB VIEW 2: CARDÁPIO (Digital Catalog + PDF Menu View) */}
+        {activeTab === 'cardapio' && (
           <div className="animate-fadeIn">
             <FeaturedDishes
               items={MENU_ITEMS}
@@ -251,24 +237,24 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB VIEW 4: LOCALIZAÇÃO & COMO CHEGAR (Dedicated Tab Card) */}
+        {/* TAB VIEW 3: LOCALIZAÇÃO & COMO CHEGAR (Dedicated Tab with Real Google Maps) */}
         {activeTab === 'localizacao' && (
           <div className="animate-fadeIn">
             <LocationSection whatsAppPhone={whatsAppPhone} />
           </div>
         )}
 
-        {/* TAB VIEW 5: AVALIAÇÕES (100% Portuguese Google Reviews) */}
+        {/* TAB VIEW 4: AVALIAÇÕES (100% Portuguese Google Reviews) */}
         {activeTab === 'avaliacoes' && (
           <div className="animate-fadeIn">
             <ReviewsSection />
           </div>
         )}
 
-        {/* TAB VIEW 6: TODOS (Continuous Clean Scroll Mode) */}
+        {/* TAB VIEW 5: VISÃO GERAL (NO PDF MENU, NO PRICES EMBLEM - Pure Elegance) */}
         {activeTab === 'todos' && (
           <div className="animate-fadeIn">
-            {/* Featured Dishes Carousel */}
+            {/* Featured Dishes Carousel with actual food plates */}
             <FeaturedDishes
               items={MENU_ITEMS}
               onAddToCart={(dish) => handleAddToCart(dish, 1)}
@@ -276,31 +262,35 @@ export default function App() {
               whatsAppPhone={whatsAppPhone}
             />
 
-            {/* Carta Oficial em Papel / Capa Mica */}
-            <section className="py-14 sm:py-20 bg-[#161311] border-t border-white/5">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <OriginalPaperMenu
-                  onAddToCart={handleAddToCart}
-                  whatsAppPhone={whatsAppPhone}
-                />
+            {/* Clean Invitation Banner to Cardápio */}
+            <section className="py-8 bg-[#181512] border-y border-white/10 text-center">
+              <div className="max-w-3xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-left">
+                  <h3 className="text-base sm:text-lg font-serif-display font-bold text-white">
+                    Deseja explorar todos os pratos e opções?
+                  </h3>
+                  <p className="text-xs text-[#DDD5CE]/70 mt-0.5">
+                    Aceda ao nosso Cardápio completo com carnes, mariscos, espetadas e opção em PDF.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('cardapio')}
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#C98A4B] hover:bg-[#B37537] text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md shrink-0"
+                >
+                  <span>Abrir Cardápio</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </section>
 
-            {/* Menu Digital Interativo com Filtros */}
-            <MenuSection
-              items={MENU_ITEMS}
-              onAddToCart={(dish) => handleAddToCart(dish, 1)}
-              onSelectDish={(dish) => setSelectedDish(dish)}
-              whatsAppPhone={whatsAppPhone}
-            />
-
-            {/* O Restaurante (Espaço, Praia, Clientes) */}
+            {/* O Restaurante (Espaço, Praia, Sala Climatizada) */}
             <AboutSection />
 
             {/* Galeria Real do Batuk */}
             <GallerySection />
 
-            {/* Dedicated Location & Map Section */}
+            {/* Dedicated Location & Google Maps Section */}
             <LocationSection whatsAppPhone={whatsAppPhone} />
 
             {/* Avaliações Reais no Google (100% PT) */}

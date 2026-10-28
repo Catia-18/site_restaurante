@@ -34,10 +34,9 @@ export const Header: React.FC<HeaderProps> = ({
   const cleanPhone = sanitizePhoneNumber(currentPhone);
 
   const navItems = [
-    { id: 'todos', label: 'Início', icon: Compass },
+    { id: 'todos', label: 'Visão Geral', icon: Compass },
     { id: 'restaurante', label: 'O Restaurante', icon: MapPin },
-    { id: 'carta_pdf', label: 'Carta Oficial (PDF)', icon: FileText },
-    { id: 'menu_digital', label: 'Menu & Pedidos', icon: UtensilsCrossed },
+    { id: 'cardapio', label: 'Cardápio', icon: UtensilsCrossed },
     { id: 'localizacao', label: 'Localização', icon: MapPin },
     { id: 'avaliacoes', label: 'Avaliações', icon: Star },
   ];

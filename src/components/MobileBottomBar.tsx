@@ -67,35 +67,35 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
           <div className="grid grid-cols-5 gap-1 max-w-md mx-auto items-center">
             <button
               type="button"
+              onClick={() => onSelectTab && onSelectTab('todos')}
+              className={`flex flex-col items-center justify-center py-1 transition-colors ${
+                activeTab === 'todos' ? 'text-[#C98A4B]' : 'text-[#DDD5CE]/70 hover:text-white'
+              }`}
+            >
+              <Home className="w-4 h-4 mb-0.5" />
+              <span className="text-[10px] font-medium leading-none">Início</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => onSelectTab && onSelectTab('restaurante')}
               className={`flex flex-col items-center justify-center py-1 transition-colors ${
                 activeTab === 'restaurante' ? 'text-[#C98A4B]' : 'text-[#DDD5CE]/70 hover:text-white'
               }`}
             >
-              <Home className="w-4 h-4 mb-0.5" />
+              <FileText className="w-4 h-4 mb-0.5" />
               <span className="text-[10px] font-medium leading-none">O Espaço</span>
             </button>
 
             <button
               type="button"
-              onClick={() => onSelectTab && onSelectTab('carta_pdf')}
+              onClick={() => onSelectTab && onSelectTab('cardapio')}
               className={`flex flex-col items-center justify-center py-1 transition-colors ${
-                activeTab === 'carta_pdf' ? 'text-[#C98A4B]' : 'text-[#DDD5CE]/70 hover:text-white'
-              }`}
-            >
-              <FileText className="w-4 h-4 mb-0.5" />
-              <span className="text-[10px] font-medium leading-none">Carta PDF</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => onSelectTab && onSelectTab('menu_digital')}
-              className={`flex flex-col items-center justify-center py-1 transition-colors ${
-                activeTab === 'menu_digital' ? 'text-[#C98A4B]' : 'text-[#DDD5CE]/70 hover:text-white'
+                activeTab === 'cardapio' ? 'text-[#C98A4B]' : 'text-[#DDD5CE]/70 hover:text-white'
               }`}
             >
               <UtensilsCrossed className="w-4 h-4 mb-0.5" />
-              <span className="text-[10px] font-medium leading-none">Menu</span>
+              <span className="text-[10px] font-medium leading-none font-bold">Cardápio</span>
             </button>
 
             <button
